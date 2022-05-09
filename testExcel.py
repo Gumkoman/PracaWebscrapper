@@ -290,4 +290,4 @@ def makeExcel(name,data):
     workbook.close()
 
 if __name__ == "__main__":
-    makeExcel()
+    makeExcel("test1","")
