@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 from asyncio import events
+import testExcel
 
 # from cv2 import exp
 from selenium import webdriver
@@ -152,6 +153,10 @@ class App(tk.Tk):
                 listOfHits.append(tempItem)
             for item in listOfHits:
                 item.printSelf()
+            #handaling excel
+
+            testExcel.makeExcel("test1",listOfHits)
+            break
         print("koniec")
 
 

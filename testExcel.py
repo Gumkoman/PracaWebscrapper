@@ -1,4 +1,16 @@
 import xlsxwriter
+class Hit:
+    def __init__(self, timeStamp, deviceType,deviceOs,deviceApp,deviceplayer,_type,status):
+        self._timeStamp = timeStamp 
+        self._deviceType = deviceType
+        self._deviceOs = deviceOs
+        self._deviceApp = deviceApp
+        self._deviceplayer = deviceplayer
+        self._type = _type
+        self._status = status
+
+    def printSelf(self):
+        print(self._timeStamp,self._deviceType,self._deviceOs,self._deviceApp,self._deviceplayer,self._type,self._status)
 
 
 event1 = [
@@ -185,13 +197,14 @@ eventType1 = [
 ]
 
 
-def makeExcel():
-    workbook = xlsxwriter.Workbook('Expenses01.xlsx')
+def makeExcel(name,data):
+    workbook = xlsxwriter.Workbook(name+'.xlsx')
     worksheet = workbook.add_worksheet("Player Events")
 
     redBackgroundFormat = workbook.add_format({'bold':True,'bg_color':'red',"font_size":14})
     lightGreyBackgroundFormat = workbook.add_format({'bold':True,'bg_color':'#d3d3d3','font_color':'red'})
     darkGreyBackgroundFormat = workbook.add_format({'bold':True,'bg_color':'#808080','font_color':'black'})
+    greenBackgroundFormat = workbook.add_format({'bold':True,'bg_color':'#81B622','font_color':'black'})
     boldFormat = workbook.add_format({'bold':True,'font_color':'black'})
 
     worksheet.set_column(0,4,35)
@@ -217,6 +230,11 @@ def makeExcel():
         worksheet.write(row,col,event1[i])
         worksheet.write(row,col+1,przypadki1[i])
         worksheet.write(row,col+2,eventName1[i])
+        for j in data:
+            if eventName1[i].lower() == j._type:
+                if j._status == "success":
+                    worksheet.write(row,col+3,"Sukces",greenBackgroundFormat)
+
         row = row+1
     row = 23
     col = 1
@@ -227,6 +245,10 @@ def makeExcel():
         worksheet.write(row,col,event2[i])
         worksheet.write(row,col+1,przypadki2[i])
         worksheet.write(row,col+2,eventName2[i])
+        for j in data:
+            if eventName1[i].lower() == j._type:
+                if j._status == "success":
+                    worksheet.write(row,col+3,"Sukces",greenBackgroundFormat)
         row = row+1
     row = 40
     col = 1
@@ -237,6 +259,10 @@ def makeExcel():
         worksheet.write(row,col,event3[i])
         worksheet.write(row,col+1,przypadki3[i])
         worksheet.write(row,col+2,eventName3[i])
+        for j in data:
+            if eventName1[i].lower() == j._type:
+                if j._status == "success":
+                    worksheet.write(row,col+3,"Sukces",greenBackgroundFormat)
         row = row+1
     for i in range(5):
         worksheet.write(row,col-1+i," ",darkGreyBackgroundFormat)
@@ -256,6 +282,10 @@ def makeExcel():
     for i in range(8):
         worksheet2.write(row,col,desc[i])
         worksheet2.write(row,col+1,eventType1[i])
+        for j in data:
+            if eventType1[i].lower().split(" ")[1].strip() == j._type:
+                if j._status == "success":
+                    worksheet.write(row,col+3,"Sukces",greenBackgroundFormat)
         row = row+1
     workbook.close()
 
