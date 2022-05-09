@@ -231,7 +231,7 @@ def makeExcel(name,data):
         worksheet.write(row,col+1,przypadki1[i])
         worksheet.write(row,col+2,eventName1[i])
         for j in data:
-            if eventName1[i].lower() == j._type:
+            if eventName1[i].lower().strip() == j._type.lower().strip():
                 if j._status == "success":
                     worksheet.write(row,col+3,"Sukces",greenBackgroundFormat)
 
@@ -246,7 +246,7 @@ def makeExcel(name,data):
         worksheet.write(row,col+1,przypadki2[i])
         worksheet.write(row,col+2,eventName2[i])
         for j in data:
-            if eventName1[i].lower() == j._type:
+            if eventName1[i].lower().strip() == j._type.lower().strip():
                 if j._status == "success":
                     worksheet.write(row,col+3,"Sukces",greenBackgroundFormat)
         row = row+1
@@ -260,7 +260,7 @@ def makeExcel(name,data):
         worksheet.write(row,col+1,przypadki3[i])
         worksheet.write(row,col+2,eventName3[i])
         for j in data:
-            if eventName1[i].lower() == j._type:
+            if eventName1[i].lower().strip() == j._type.lower().strip():
                 if j._status == "success":
                     worksheet.write(row,col+3,"Sukces",greenBackgroundFormat)
         row = row+1
@@ -283,7 +283,7 @@ def makeExcel(name,data):
         worksheet2.write(row,col,desc[i])
         worksheet2.write(row,col+1,eventType1[i])
         for j in data:
-            if eventType1[i].lower().split(" ")[1].strip() == j._type:
+            if eventType1[i].lower().split(" ")[1].strip() == j._type.lower().strip():
                 if j._status == "success":
                     worksheet.write(row,col+3,"Sukces",greenBackgroundFormat)
         row = row+1
