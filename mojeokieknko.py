@@ -115,8 +115,9 @@ class App(tk.Tk):
             self.saveSettings()
             driver = None
             try:
-                DRIVER_PATH = 'chromedriver'#dopisać wczytywanie 
-                driver = webdriver.Chrome(executable_path=DRIVER_PATH)
+                DRIVER_PATH = self.settings['chromePath']+ '/' +'chromedriver' #dopisać wczytywanie 
+                print(DRIVER_PATH)
+                driver = webdriver.Chrome(DRIVER_PATH)
             except:
                 messagebox.showerror("Błąd", "Nie odnaleziono webdrivera")
                 break
