@@ -155,7 +155,7 @@ class App(tk.Tk):
                 item.printSelf()
             #handaling excel
 
-            testExcel.makeExcel("test1",listOfHits)
+            testExcel.makeExcel(self.settings['outputPath']+"\\test1",listOfHits)
             break
         print("koniec")
 
