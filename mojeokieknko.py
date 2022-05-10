@@ -12,9 +12,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 import time
-import openpyxl
 import os
 import json
+
 class Hit:
     def __init__(self, timeStamp, deviceType,deviceOs,deviceApp,deviceplayer,_type,status):
         self._timeStamp = timeStamp 
