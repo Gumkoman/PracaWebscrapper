@@ -197,7 +197,7 @@ eventType1 = [
 ]
 
 
-def makeExcel(name,data):
+def makeExcel(name,data,name1,platform,date):
     workbook = xlsxwriter.Workbook(name+'.xlsx')
     worksheet = workbook.add_worksheet("Player Events")
 
@@ -210,9 +210,9 @@ def makeExcel(name,data):
     worksheet.set_column(0,4,35)
 
     worksheet.merge_range(0,0,0,4,"Fromularz Testów player Events",redBackgroundFormat)
-    worksheet.merge_range(1,0,1,4,"Data:")
-    worksheet.merge_range(2,0,2,4,"Platforma")
-    worksheet.merge_range(3,0,3,4,"Imie i nazwisko")
+    worksheet.merge_range(1,0,1,4,"Data:"+date)
+    worksheet.merge_range(2,0,2,4,"Platforma:"+platform)
+    worksheet.merge_range(3,0,3,4,"Imie i nazwisko"+name1)
 
 
     row = 6

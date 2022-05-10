@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
+from tkinter import filedialog
 from asyncio import events
 import testExcel
 
@@ -14,7 +15,7 @@ from selenium.webdriver.support import expected_conditions as ec
 import time
 import os
 import json
-
+import datetime
 class Hit:
     def __init__(self, timeStamp, deviceType,deviceOs,deviceApp,deviceplayer,_type,status):
         self._timeStamp = timeStamp 
@@ -33,10 +34,11 @@ class App(tk.Tk):
     def __init__(self):
         super().__init__()
 
-        self.geometry("300x200")
+        self.geometry("400x200")
         self.title('Kibana Webscrapper')
         self.resizable(0, 0)
-
+        self.chromeText = tk.StringVar()
+        self.outputText = tk.StringVar()
         # configure the grid
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=7)
@@ -67,13 +69,25 @@ class App(tk.Tk):
 
 
         #C:\Users\gumko\AppData\Roaming
+        self.chromeText.set(self.settings["chromePath"])
+        self.outputText.set(self.settings["outputPath"])
         self.create_widgets()
 
     def selectChromePath(self):
-        pass
+        file=filedialog.askdirectory()
+        print(file)
+        self.settings['chromePath'] = ""
+        self.settings['chromePath'] = str(file)
+        # self.ChromePathBtn.configure(text = str(file))
+        self.chromeText.set(self.settings["chromePath"])
+        # self.create_widgets()
 
     def selectOutPutPath(self):
-        pass
+        file=filedialog.askdirectory()
+        print(file)
+        self.settings['outputPath'] = ""
+        self.settings['outputPath'] = str(file)
+        self.outputText.set(self.settings["outputPath"])
 
     def openConfigurationPath(self):
         pass
@@ -154,8 +168,11 @@ class App(tk.Tk):
             for item in listOfHits:
                 item.printSelf()
             #handaling excel
-
-            testExcel.makeExcel(self.settings['outputPath']+"\\test1",listOfHits)
+            now = datetime.datetime.now()
+            
+            excelName = "\\wynik" + now.strftime("%Y-%m-%d_%H_%M_%S")
+            testExcel.makeExcel(self.settings['outputPath']+excelName,listOfHits,self.settings['name'],self.settings['platform'],now.strftime("%Y-%m-%d_%H_%M_%S"))
+            messagebox.showinfo("Sukces", "Plik został zapisany w:"+self.settings['outputPath'])
             break
         print("koniec")
 
@@ -165,14 +182,16 @@ class App(tk.Tk):
         self.ChromePathBtn = ttk.Button(self, text="ChromePath:", command=self.selectChromePath)
         self.ChromePathBtn.grid(column=0, row=0, sticky=tk.W, padx=5, pady=5)
 
-        self.ChromePathText = ttk.Label(self,text=self.settings["chromePath"])
+        # self.ChromePathText = ttk.Label(self,text=self.settings["chromePath"])
+        self.ChromePathText = ttk.Label(self,textvariable = self.chromeText)
         self.ChromePathText.grid(column=1, row=0, sticky=tk.E, padx=5, pady=5)
-
+        
         # output Path
         self.OutputPathBtn = ttk.Button(self, text="OutputPathBtn:", command=self.selectOutPutPath)
         self.OutputPathBtn.grid(column=0, row=1, sticky=tk.W, padx=5, pady=5)
 
-        self.OutputPathText = ttk.Label(self,text=self.settings["outputPath"])
+        # self.OutputPathText = ttk.Label(self,text=self.settings["outputPath"])
+        self.OutputPathText = ttk.Label(self,textvariable = self.outputText)
         self.OutputPathText.grid(column=1, row=1, sticky=tk.E, padx=5, pady=5)
 
         # Id
